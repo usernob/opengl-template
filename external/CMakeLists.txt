@@ -12,6 +12,10 @@ add_subdirectory(glm)
 
 add_library(
     imgui STATIC
+    imgui/backends/imgui_impl_glfw.cpp
+    imgui/backends/imgui_impl_glfw.h
+    imgui/backends/imgui_impl_opengl3.cpp
+    imgui/backends/imgui_impl_opengl3.h
     imgui/imconfig.h
     imgui/imgui.cpp
     imgui/imgui.h
@@ -23,10 +27,6 @@ add_library(
     imgui/imstb_rectpack.h
     imgui/imstb_textedit.h
     imgui/imstb_truetype.h
-    imgui/backends/imgui_impl_glfw.cpp
-    imgui/backends/imgui_impl_glfw.h
-    imgui/backends/imgui_impl_opengl3.cpp
-    imgui/backends/imgui_impl_opengl3.h
 )
 target_include_directories(imgui PUBLIC imgui imgui/backends)
 target_link_libraries(imgui PRIVATE glfw)
@@ -37,4 +37,6 @@ set(ASSIMP_BUILD_ZLIB ON)
 set(ASSIMP_BUILD_TESTS OFF)
 add_subdirectory(assimp)
 
-target_link_libraries(external INTERFACE glfw glad stb_image glm::glm imgui assimp)
+target_link_libraries(
+    external INTERFACE glfw glad stb_image glm::glm imgui assimp
+)
