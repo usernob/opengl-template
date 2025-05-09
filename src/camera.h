@@ -12,6 +12,8 @@ enum class CameraMovement
     BACKWARD,
     LEFT,
     RIGHT,
+    UP,
+    DOWN,
     NONE
 };
 // Default camera values
@@ -24,7 +26,6 @@ static const float ZOOM = 45.0f;
 class Camera
 {
 private:
-    glm::vec3 m_position;
     glm::vec3 m_front;
     glm::vec3 m_up;
     glm::vec3 m_right;
@@ -36,9 +37,10 @@ private:
     float m_movement_speed;
     float m_mouse_sesivity;
 
+public:
+    glm::vec3 m_position;
     float m_zoom;
 
-public:
     Camera(
         glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3 up = glm::vec3(0.0f, 1.0, 0.0f),
