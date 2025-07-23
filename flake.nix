@@ -19,13 +19,10 @@
       in
       {
         devShell = pkgs.mkShell rec {
-          name = "sfml";
+          name = "opengl";
 
           nativeBuildInputs = with pkgs; [
             cmake
-            cmake-lint
-            cmake-format
-            cmake-language-server
             ninja
             pkg-config
             libgcc
@@ -48,14 +45,15 @@
           ];
 
           packages = with pkgs; [
+            cmake-lint
+            cmake-format
+            neocmakelsp
             clang-tools
             valgrind
-            zellij
+            gdb
+            glsl_analyzer
           ];
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
-          shellHook = ''
-            zellij
-          '';
         };
       }
     );

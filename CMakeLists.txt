@@ -32,9 +32,11 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
 add_subdirectory(external)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL glfw glad)
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL external)
 
 target_compile_definitions(
     ${PROJECT_NAME}
