@@ -11,6 +11,16 @@ target_include_directories(glad PUBLIC glad/include)
 add_library(stb_image SHARED stb/stb_image.cpp)
 target_include_directories(stb_image PUBLIC stb)
 
+execute_process(COMMAND grep -q avx2 /proc/cpuinfo RESULT_VARIABLE HAS_AVX2)
+if(HAS_AVX2 EQUAL 0)
+    set(GLM_ENABLE_SIMD_AVX2 ON CACHE BOOL "" FORCE)
+    message(STATUS "AVX2 detected and enabled for GLM")
+else()
+    set(GLM_ENABLE_SIMD_SSE4_2 ON CACHE BOOL "" FORCE)
+    message(STATUS "AVX2 not found, falling back to SSE4.2")
+endif()
+set(GLM_ENABLE_CXX_20 ON CACHE BOOL "" FORCE)
+set(GLM_ENABLE_FAST_MATH ON CACHE BOOL "" FORCE)
 add_subdirectory(glm)
 
 add_library(
@@ -34,10 +44,10 @@ add_library(
 target_include_directories(imgui PUBLIC imgui imgui/backends)
 target_link_libraries(imgui PRIVATE glfw)
 
-set(ASSIMP_NO_EXPORT ON)
-set(ASSIMP_INSTALL OFF)
-set(ASSIMP_BUILD_ZLIB ON)
-set(ASSIMP_BUILD_TESTS OFF)
+set(ASSIMP_NO_EXPORT ON CACHE BOOL "" FORCE)
+set(ASSIMP_INSTALL OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ZLIB ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 add_subdirectory(assimp)
 
 target_link_libraries(external INTERFACE glfw glad stb_image glm::glm imgui assimp)
