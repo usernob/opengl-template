@@ -9,7 +9,7 @@ add_library(glad SHARED glad/src/glad.c)
 target_include_directories(glad PUBLIC glad/include)
 
 add_library(stb_image SHARED stb/stb_image.cpp)
-target_include_directories(stb_image PUBLIC stb)
+target_include_directories(stb_image PUBLIC stb/upstream)
 
 execute_process(COMMAND grep -q avx2 /proc/cpuinfo RESULT_VARIABLE HAS_AVX2)
 if(HAS_AVX2 EQUAL 0)
