@@ -30,6 +30,7 @@ bool g_mouse_pressed = false;
 Camera g_camera(glm::vec3(0.0f, 0.0f, 3.0f));
 glm::mat4 g_projection = g_camera.getProjectionMatrix((float)WINDOW_WIDTH / (float)WINDOW_HEIGHT);
 
+void error_callback(int error, const char *description);
 void framebufferSizeCallback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 void mouseCallback(GLFWwindow *window, double xpos, double ypos);
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
     // glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
     // glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
+    glfwSetErrorCallback(error_callback);
     GLFWwindow *window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "opengl", NULL, NULL);
     if (window == NULL)
     {
@@ -413,4 +415,9 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
     g_mouse_pressed = (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) &&
                       !ImGui::GetIO().WantCaptureMouse;
+}
+
+void error_callback(int error, const char *description)
+{
+    std::cerr << "Error: " << description << "\n";
 }
